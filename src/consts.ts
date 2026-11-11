@@ -11,10 +11,11 @@ export const SITE = {
 };
 
 export const SOCIALS = [
-  { name: 'GitHub', url: 'https://github.com/dominicnike' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/' },
-  { name: 'X', url: 'https://x.com/' },
-];
+  { name: 'X', url: 'https://x.com/dominicnike', icon: 'x' },
+  { name: 'GitHub', url: 'https://github.com/dominicnike', icon: 'github' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/dominic-iortyer-23510280/', icon: 'linkedin' },
+  { name: 'RSS', url: '/rss.xml', icon: 'rss' },
+] as const;
 
 export const NAV = [
   { label: 'Home', href: '/' },

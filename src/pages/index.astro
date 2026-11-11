@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogCard from '../components/BlogCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { SITE } from '../consts';
 import { getPosts, getTagCounts } from '../utils';
 
@@ -23,6 +24,7 @@ const latest = posts.slice(0, 6);
           <a href="/blog" class="btn btn-primary">Read the Blog →</a>
           <a href="/about" class="btn">About Me</a>
         </div>
+        <div class="hero-socials"><SocialLinks /></div>
         <div class="stats">
           <div><strong>{posts.length}+</strong><span>Articles</span></div>
           <div><strong>{tags.length}+</strong><span>Topics</span></div>
@@ -70,7 +72,8 @@ const latest = posts.slice(0, 6);
   h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); margin: 1rem 0; }
   .gradient { background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .hero-lead { font-size: 1.15rem; color: var(--color-text-muted); max-width: 58ch; }
-  .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 2rem 0; }
+  .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 2rem 0 1.5rem; }
+  .hero-socials { margin-bottom: 2rem; }
   .stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
   .stats div { display: flex; flex-direction: column; }
   .stats strong { font-size: 1.8rem; font-weight: 800; }

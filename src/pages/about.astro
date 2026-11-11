@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
 import { SITE, SOCIALS } from '../consts';
+
+const link = (name: string) => SOCIALS.find((s) => s.name === name)!.url;
 
 const skills = ['Microsoft Azure', 'Kubernetes / AKS', 'Terraform', 'Bicep', 'GitHub Actions', 'Azure DevOps', 'Docker', 'Python', 'Azure AI Foundry', 'Linux'];
 ---
@@ -12,9 +15,7 @@ const skills = ['Microsoft Azure', 'Kubernetes / AKS', 'Terraform', 'Bicep', 'Gi
       <div>
         <span class="tag">{SITE.role}</span>
         <h1>About Me</h1>
-        <div class="socials">
-          {SOCIALS.map((s) => <a class="btn" href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a>)}
-        </div>
+        <SocialLinks />
       </div>
     </div>
     <div class="prose">
@@ -30,8 +31,9 @@ const skills = ['Microsoft Azure', 'Kubernetes / AKS', 'Terraform', 'Bicep', 'Gi
       <div class="skills">{skills.map((s) => <span class="tag">{s}</span>)}</div>
       <h2>Get in touch</h2>
       <p>
-        The best way to reach me is via <a href={SOCIALS[1].url}>LinkedIn</a> or
-        <a href={SOCIALS[0].url}>GitHub</a>.
+        The best way to reach me is via <a href={link('LinkedIn')}>LinkedIn</a>,
+        <a href={link('X')}>X</a> or <a href={link('GitHub')}>GitHub</a>. You can also follow new posts via
+        <a href="/rss.xml">RSS</a>.
       </p>
     </div>
   </div>

@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../consts';
+import SocialLinks from './SocialLinks.astro';
 import { getPosts, getTagCounts } from '../utils';
 
 const tags = getTagCounts(await getPosts());
@@ -16,6 +17,7 @@ const tags = getTagCounts(await getPosts());
         <a href="/about" class="sidebar-link">More about me →</a>
       </div>
     </div>
+    <div class="sidebar-socials"><SocialLinks size="sm" /></div>
   </div>
   <div class="sidebar-card">
     <h4 class="sidebar-heading">Popular Tags</h4>
@@ -41,6 +43,7 @@ const tags = getTagCounts(await getPosts());
   .author-name { font-weight: 700; margin: 0 0 0.3rem; }
   .author-text { color: var(--color-text-muted); font-size: 0.82rem; margin: 0 0 0.5rem; line-height: 1.5; }
   .sidebar-link { font-size: 0.82rem; font-weight: 600; }
+  .sidebar-socials { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--color-border); }
   .tag-cloud { display: flex; flex-direction: column; gap: 0.3rem; }
   .tag-item { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0.6rem; border-radius: var(--radius-md); color: var(--color-text-muted); font-size: 0.86rem; }
   .tag-item:hover { background: var(--color-bg-card); color: var(--color-primary); text-decoration: none; }
