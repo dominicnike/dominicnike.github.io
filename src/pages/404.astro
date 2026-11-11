@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found">
+  <div class="container nf">
+    <h1>404</h1>
+    <p>Sorry, the page you're looking for doesn't exist.</p>
+    <a class="btn btn-primary" href="/">Back home</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .nf { text-align: center; padding: 6rem 1.5rem; }
+  h1 { font-size: 6rem; margin: 0; background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  p { color: var(--color-text-muted); margin-bottom: 2rem; }
+</style>

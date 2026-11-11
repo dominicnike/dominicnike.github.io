@@ -1,0 +1,14 @@
+---
+import { SITE, SOCIALS } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© {year} {SITE.author}. Built with <a href="https://astro.build">Astro</a>, hosted on GitHub Pages.</p>
+    <div class="footer-links">
+      {SOCIALS.map((s) => <a href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a>)}
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </div>
+</footer>

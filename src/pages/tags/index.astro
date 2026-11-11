@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, getTagCounts } from '../../utils';
+
+const tags = getTagCounts(await getPosts());
+---
+
+<BaseLayout title="Tags" description="Browse articles by topic.">
+  <div class="container tags-page">
+    <h1>Tags</h1>
+    <p class="muted">Browse {tags.length} topics.</p>
+    <div class="grid">
+      {
+        tags.map((t) => (
+          <a href={`/tags/${t.slug}`} class="tile">
+            <span># {t.name}</span>
+            <small>{t.count} {t.count === 1 ? 'article' : 'articles'}</small>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .tags-page { padding-top: 3rem; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 0.5rem; }
+  .muted { color: var(--color-text-muted); margin-bottom: 2rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .tile { display: flex; flex-direction: column; gap: 0.25rem; padding: 1.1rem 1.25rem; border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-bg-card); color: var(--color-text); font-weight: 600; transition: all var(--transition); }
+  .tile:hover { border-color: var(--color-primary); transform: translateY(-2px); text-decoration: none; }
+  .tile small { color: var(--color-text-muted); font-weight: 400; }
+</style>

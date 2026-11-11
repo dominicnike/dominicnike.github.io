@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getPosts, getTagCounts, slugifyTag } from '../../utils';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return getTagCounts(posts).map((t) => ({
+    params: { tag: t.slug },
+    props: { name: t.name, posts: posts.filter((p) => p.data.tags.some((x) => slugifyTag(x) === t.slug)) },
+  }));
+}
+
+const { name, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${name}`} description={`Articles tagged with ${name}.`}>
+  <div class="container tag-page">
+    <a href="/tags" class="back">← All tags</a>
+    <h1># {name}</h1>
+    <p class="muted">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</p>
+    <div class="posts-grid">
+      {posts.map((post) => <BlogCard post={post} />)}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-page { padding-top: 3rem; }
+  .back { font-size: 0.9rem; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0.75rem 0 0.25rem; }
+  .muted { color: var(--color-text-muted); margin-bottom: 2rem; }
+</style>

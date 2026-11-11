@@ -1,0 +1,79 @@
+---
+---
+
+<div class="search-overlay" id="searchOverlay" hidden>
+  <div class="search-modal" role="dialog" aria-modal="true" aria-label="Search posts">
+    <div class="search-input-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <input id="searchInput" type="search" placeholder="Search articles, tags..." autocomplete="off" />
+      <kbd>Esc</kbd>
+    </div>
+    <ul class="search-results" id="searchResults"></ul>
+  </div>
+</div>
+
+<script>
+  type Item = { title: string; description: string; url: string; tags: string[] };
+  const overlay = document.getElementById('searchOverlay') as HTMLDivElement;
+  const input = document.getElementById('searchInput') as HTMLInputElement;
+  const results = document.getElementById('searchResults') as HTMLUListElement;
+  let index: Item[] | null = null;
+
+  const esc = (s: string) =>
+    s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+
+  async function open() {
+    overlay.hidden = false;
+    input.value = '';
+    input.focus();
+    if (!index) index = await fetch('/search.json').then((r) => r.json());
+    render('');
+  }
+  const close = () => (overlay.hidden = true);
+
+  function render(q: string) {
+    const term = q.trim().toLowerCase();
+    const items = (index ?? []).filter(
+      (i) => !term || [i.title, i.description, ...i.tags].join(' ').toLowerCase().includes(term),
+    );
+    results.innerHTML = items.length
+      ? items
+          .slice(0, 8)
+          .map(
+            (i) =>
+              `<li><a href="${esc(i.url)}"><strong>${esc(i.title)}</strong><span>${esc(i.description)}</span></a></li>`,
+          )
+          .join('')
+      : '<li class="empty">No results found.</li>';
+  }
+
+  document.querySelectorAll('[data-search-trigger]').forEach((b) => b.addEventListener('click', open));
+  input.addEventListener('input', () => render(input.value));
+  overlay.addEventListener('click', (e) => e.target === overlay && close());
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      overlay.hidden ? open() : close();
+    } else if (e.key === 'Escape' && !overlay.hidden) close();
+  });
+</script>
+
+<style is:global>
+  .search-overlay {
+    position: fixed; inset: 0; z-index: 100; background: rgba(2, 6, 23, 0.6);
+    backdrop-filter: blur(4px); display: flex; justify-content: center; padding: 12vh 1rem 1rem;
+  }
+  .search-overlay[hidden] { display: none; }
+  .search-modal {
+    width: 100%; max-width: 620px; height: fit-content; background: var(--color-bg-card);
+    border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+  }
+  .search-input-wrap { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--color-border); color: var(--color-text-muted); }
+  .search-input-wrap input { flex: 1; border: none; outline: none; background: transparent; color: var(--color-text); font: inherit; font-size: 1rem; }
+  .search-input-wrap kbd { font-family: var(--font-mono); font-size: 0.7rem; padding: 0.1rem 0.4rem; border: 1px solid var(--color-border); border-radius: 4px; }
+  .search-results { list-style: none; margin: 0; padding: 0.5rem; max-height: 60vh; overflow-y: auto; }
+  .search-results a { display: flex; flex-direction: column; gap: 0.2rem; padding: 0.7rem 0.85rem; border-radius: var(--radius-md); color: var(--color-text); }
+  .search-results a:hover, .search-results a:focus { background: var(--color-bg-secondary); text-decoration: none; outline: none; }
+  .search-results span { color: var(--color-text-muted); font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .search-results .empty { padding: 1rem; color: var(--color-text-muted); text-align: center; }
+</style>
