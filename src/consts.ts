@@ -4,10 +4,10 @@ export const SITE = {
   description:
     'Articles about Azure, Kubernetes, DevOps, Infrastructure as Code and AI by Dominic Iortyer.',
   author: 'Dominic Iortyer',
-  role: 'Cloud & DevOps Engineer',
+  role: 'Senior DevOps & Cloud Engineer',
   avatar: 'https://github.com/dominicnike.png',
   postsPerPage: 6,
-  yearsExperience: '5+',
+  yearsExperience: '10+',
 };
 
 export const SOCIALS = [

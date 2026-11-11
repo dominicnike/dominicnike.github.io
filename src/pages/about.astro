@@ -1,50 +1,331 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 import { SITE, SOCIALS } from '../consts';
 
-const link = (name: string) => SOCIALS.find((s) => s.name === name)!.url;
+const chips = ['Cloud', 'DevOps', 'Platform', 'SRE', 'Security'];
+const tags = ['#azure', '#aws', '#gcp', '#kubernetes', '#terraform', '#devops', '#sre', '#cloudsecurity'];
+const loves = ['Automation', 'Platform Engineering', 'Cloud Security', 'Sharing Knowledge'];
 
-const skills = ['Microsoft Azure', 'Kubernetes / AKS', 'Terraform', 'Bicep', 'GitHub Actions', 'Azure DevOps', 'Docker', 'Python', 'Azure AI Foundry', 'Linux'];
+const icon = {
+  cloud: 'M17.5 19a4.5 4.5 0 1 0-1.4-8.78A6 6 0 0 0 4.5 12.5 3.5 3.5 0 0 0 6 19z',
+  gear: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z',
+  shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4',
+  server: 'M2 4h20v6H2zM2 14h20v6H2zM6 7h.01M6 17h.01',
+};
+
+const focus = [
+  {
+    title: 'Cloud & Platform Engineering',
+    icon: icon.cloud,
+    body: [
+      'My experience spans cloud infrastructure, compute, networking, storage, identity, security, monitoring, backup, disaster recovery, and hybrid connectivity.',
+      'I work with technologies including Kubernetes, AKS, EKS, GKE, OpenShift, Terraform, Azure Bicep, Helm, and CI/CD platforms such as Azure DevOps, GitHub Actions, GitLab CI, and Jenkins.',
+      'I’m particularly interested in platform engineering and infrastructure automation building environments that are consistent, reproducible, observable, secure, and resilient.',
+    ],
+  },
+  {
+    title: 'DevOps & Automation',
+    icon: icon.gear,
+    body: [
+      'Automation is a major part of how I approach infrastructure engineering.',
+      'I use Infrastructure as Code, CI/CD, scripting, configuration management, and automation to improve consistency, reduce configuration drift, eliminate repetitive manual processes, and make deployments more reliable.',
+      'For me, DevOps is not simply about tools. It is about improving the way people, processes, infrastructure, and applications work together.',
+    ],
+  },
+  {
+    title: 'Cloud Security & Identity',
+    icon: icon.shield,
+    body: [
+      'Security is an integral part of my approach to infrastructure engineering.',
+      'My experience includes Microsoft Entra ID, IAM, RBAC, Conditional Access, endpoint security, EDR/XDR, SIEM, vulnerability management, incident response, network security, email security, and security monitoring.',
+      'I believe security should be considered from the beginning of the infrastructure and application lifecycle not added as an afterthought.',
+    ],
+  },
+  {
+    title: 'Enterprise Infrastructure',
+    icon: icon.server,
+    body: [
+      'My background also includes enterprise experience across Windows and Linux systems, virtualization, networking, Microsoft 365, Intune, Active Directory, Exchange, VMware, Hyper-V, backup and disaster recovery, and endpoint management.',
+      'This broader infrastructure background gives me a practical understanding of how traditional enterprise environments connect with modern cloud platforms.',
+    ],
+  },
+];
+
+const approach = ['Build it', 'Automate it', 'Secure it', 'Monitor it', 'Improve it'];
+
+const skills = [
+  { title: 'Cloud Platforms', items: ['Microsoft Azure', 'Amazon Web Services', 'Google Cloud', 'Hybrid environments'] },
+  { title: 'Containers & Orchestration', items: ['Kubernetes', 'AKS / EKS / GKE', 'OpenShift', 'Docker', 'Helm'] },
+  { title: 'Infrastructure as Code', items: ['Terraform', 'Azure Bicep', 'Configuration management', 'Scripting'] },
+  { title: 'CI/CD', items: ['Azure DevOps', 'GitHub Actions', 'GitLab CI', 'Jenkins'] },
+  { title: 'Security & Identity', items: ['Microsoft Entra ID', 'IAM / RBAC', 'Conditional Access', 'EDR / XDR', 'SIEM'] },
+  { title: 'Security Operations', items: ['Vulnerability management', 'Incident response', 'Network security', 'Email security', 'Security monitoring'] },
+  { title: 'Enterprise Systems', items: ['Windows Server', 'Linux', 'Active Directory', 'Exchange', 'Microsoft 365 / Intune'] },
+  { title: 'Virtualization & Resilience', items: ['VMware', 'Hyper-V', 'Backup', 'Disaster recovery', 'Endpoint management'] },
+];
+
+const principles = ['Secure', 'Reliable', 'Automated', 'Observable', 'Scalable', 'Repeatable'];
+
+const audience = [
+  { title: 'Beginning your cloud journey', text: 'Practical guides to get started.' },
+  { title: 'Systems & DevOps engineers', text: 'Real-world lessons and troubleshooting.' },
+  { title: 'Preparing for an interview', text: 'Concepts explained clearly.' },
+  { title: 'Improving reliability & security', text: 'Architecture decisions and automation.' },
+];
+
+const pills = SOCIALS.filter((s) => s.icon !== 'rss');
 ---
 
-<BaseLayout title="About" description={`About ${SITE.author}`}>
+<BaseLayout title="About" description={`About ${SITE.author} — ${SITE.role}.`}>
   <div class="container about">
-    <div class="about-header">
-      <img src={SITE.avatar} alt={SITE.author} width="160" height="160" />
-      <div>
-        <span class="tag">{SITE.role}</span>
-        <h1>About Me</h1>
-        <SocialLinks />
+    <!-- Hero -->
+    <section class="hero">
+      <div class="intro">
+        <p class="eyebrow">About</p>
+        <h1>{SITE.author}</h1>
+        <p class="role">{SITE.role}</p>
+        <div class="chips">{chips.map((c) => <span>{c}</span>)}</div>
+        <blockquote>Build it. Automate it. Secure it. Monitor it. Improve it.</blockquote>
+        <p>
+          I’m a <strong>Senior DevOps &amp; Cloud Engineer</strong> with <strong>10+ years of experience</strong> building,
+          automating, securing, and supporting enterprise IT and cloud infrastructure across <strong>Azure, AWS, GCP, and
+          hybrid environments</strong>.
+        </p>
+        <p>
+          My work sits at the intersection of Cloud Engineering, DevOps, Platform Engineering, Site Reliability
+          Engineering (SRE), automation, cybersecurity, and enterprise infrastructure. I focus on building reliable,
+          secure, scalable, and maintainable environments that help organizations operate efficiently and deliver
+          technology with confidence.
+        </p>
+        <p>
+          I work extensively with Azure, AWS, GCP, Kubernetes, Docker, Terraform, Infrastructure as Code (IaC), CI/CD,
+          Linux, Windows Server, identity management, networking, monitoring, and cloud security. I use automation and
+          DevOps practices to reduce manual processes, improve deployment reliability, strengthen operational efficiency,
+          and make infrastructure easier to manage at scale.
+        </p>
+        <div class="pills">
+          {pills.map((s) => <a href={s.url} target="_blank" rel="me noopener noreferrer">{s.name}</a>)}
+          <a href="/rss.xml">RSS</a>
+        </div>
       </div>
-    </div>
-    <div class="prose">
-      <p>
-        Hi! I'm <strong>{SITE.author}</strong>, a {SITE.role.toLowerCase()} passionate about building reliable,
-        automated cloud platforms. I spend my time working with Azure, Kubernetes, Infrastructure as Code and AI services.
+
+      <aside class="profile">
+        <div class="avatar-ring"><img src={SITE.avatar} alt={SITE.author} width="150" height="150" /></div>
+        <dl>
+          <div><dt>Role</dt><dd>{SITE.role}</dd></div>
+          <div><dt>Clouds</dt><dd>Azure · AWS · GCP</dd></div>
+          <div><dt>Experience</dt><dd>10+ years</dd></div>
+        </dl>
+        <div class="hash">{tags.map((t) => <span>{t}</span>)}</div>
+        <p class="love-title">I love</p>
+        <ul class="loves">{loves.map((l) => <li>{l}</li>)}</ul>
+      </aside>
+    </section>
+
+    <!-- Mission -->
+    <section class="mission">
+      <p class="eyebrow">My goal</p>
+      <p class="mission-text">To make complex technologies easier to understand and practical to apply.</p>
+    </section>
+
+    <!-- Focus -->
+    <section>
+      <p class="eyebrow">Focus</p>
+      <h2>What I do</h2>
+      <div class="focus-grid">
+        {
+          focus.map((f) => (
+            <article class="card">
+              <span class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={f.icon} /></svg>
+              </span>
+              <h3>{f.title}</h3>
+              {f.body.map((p) => <p>{p}</p>)}
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <p class="eyebrow">How I work</p>
+      <h2>My approach</h2>
+      <ol class="steps">
+        {approach.map((s, i) => <li><span>{String(i + 1).padStart(2, '0')}</span>{s}.</li>)}
+      </ol>
+    </section>
+
+    <!-- Skills -->
+    <section>
+      <p class="eyebrow">Toolbox</p>
+      <h2>Skills &amp; stack</h2>
+      <div class="skills-grid">
+        {
+          skills.map((s, i) => (
+            <article class="card skill">
+              <header><h3>{s.title}</h3><span>{String(i + 1).padStart(2, '0')}</span></header>
+              <ul>{s.items.map((it) => <li>{it}</li>)}</ul>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Philosophy & writing -->
+    <section class="two-col">
+      <div>
+        <p class="eyebrow">Principles</p>
+        <h2>My engineering philosophy</h2>
+        <p class="lead">I believe good infrastructure should be:</p>
+        <div class="values">{principles.map((p) => <div class="value">{p}.</div>)}</div>
+        <p class="muted">
+          Technology changes constantly, so I believe in continuous learning, experimentation, knowledge sharing, and
+          practical application.
+        </p>
+        <p class="muted">
+          I’m always exploring better ways to build, automate, secure, monitor, and improve technology environments.
+        </p>
+        <p class="tagline">Build it. Automate it. Secure it. Monitor it. Improve it.</p>
+      </div>
+      <div>
+        <p class="eyebrow">The blog</p>
+        <h2>What I write about</h2>
+        <p class="muted">
+          This blog is where I share practical technical knowledge, real-world lessons, troubleshooting experiences, and
+          solutions from the world of Cloud, DevOps, SRE, Platform Engineering, Kubernetes, Infrastructure as Code,
+          Automation, and Cloud Security.
+        </p>
+        <p class="muted">
+          I write about things I’m learning, building, troubleshooting, and exploring including practical guides,
+          architecture decisions, automation, security, cloud technologies, and lessons from real infrastructure
+          challenges.
+        </p>
+      </div>
+    </section>
+
+    <!-- Audience -->
+    <section>
+      <p class="eyebrow">Who it’s for</p>
+      <h2>I hope you find something useful here</h2>
+      <p class="muted narrow">
+        Whether you're beginning your cloud journey, working as a systems or DevOps engineer, preparing for a technical
+        interview, or looking to improve the reliability and security of your infrastructure, I hope you find something
+        useful here.
       </p>
-      <p>
-        This blog is where I share what I learn — practical, hands-on guides, lessons from real-world projects, and notes
-        from my certification journey. I hope you find something useful here.
-      </p>
-      <h2>What I work with</h2>
-      <div class="skills">{skills.map((s) => <span class="tag">{s}</span>)}</div>
-      <h2>Get in touch</h2>
-      <p>
-        The best way to reach me is via <a href={link('LinkedIn')}>LinkedIn</a>,
-        <a href={link('X')}>X</a> or <a href={link('GitHub')}>GitHub</a>. You can also follow new posts via
-        <a href="/rss.xml">RSS</a>.
-      </p>
-    </div>
+      <div class="audience">
+        {audience.map((a) => <div class="card small"><h3>{a.title}</h3><p>{a.text}</p></div>)}
+        <a class="card small cta" href="/blog">Read the blog →</a>
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
-  .about { padding-top: 3rem; max-width: 860px; }
-  .about-header { display: flex; gap: 2rem; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; }
-  .about-header img { border-radius: 50%; border: 4px solid var(--color-border); box-shadow: 0 0 0 8px var(--color-primary-soft); }
-  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0.75rem 0 1rem; }
-  .socials { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .skills .tag { font-size: 0.85rem; padding: 0.35rem 0.85rem; }
+  .about { padding-top: 3.5rem; }
+  section { margin-bottom: 4.5rem; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.75rem;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent);
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--color-accent); }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); margin: 0 0 1.75rem; }
+  h3 { font-size: 1rem; margin: 0 0 0.5rem; }
+  .muted { color: var(--color-text-muted); }
+  .narrow { max-width: 75ch; margin-top: -0.75rem; margin-bottom: 1.75rem; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3.5rem; align-items: start; }
+  h1 { font-size: clamp(2.3rem, 5.5vw, 3.4rem); margin: 0 0 0.5rem; }
+  .role { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-primary); margin: 0 0 1.25rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .chips span {
+    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.3rem 0.75rem; border-radius: 100px; border: 1px solid var(--color-border); color: var(--color-accent);
+  }
+  blockquote { margin: 0 0 1.5rem; padding: 0.25rem 0 0.25rem 1rem; border-left: 3px solid var(--color-accent); font-style: italic; font-weight: 600; }
+  .intro p:not(.eyebrow):not(.role) { color: var(--color-text-muted); }
+  .intro strong { color: var(--color-text); }
+  .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .pills a {
+    font-family: var(--font-mono); font-size: 0.78rem; padding: 0.4rem 0.9rem; border-radius: 100px;
+    border: 1px solid var(--color-border); color: var(--color-text);
+  }
+  .pills a:hover { border-color: var(--color-accent); color: var(--color-accent); text-decoration: none; }
+
+  .profile {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-card)), var(--color-bg-card));
+    border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem 1.75rem; position: sticky; top: 90px;
+  }
+  .avatar-ring {
+    width: 168px; height: 168px; margin: 0 auto 1.75rem; border-radius: 50%; padding: 6px;
+    border: 1px dashed color-mix(in srgb, var(--color-accent) 60%, transparent);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  }
+  .avatar-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--color-accent); }
+  dl { margin: 0; }
+  dl div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.7rem 0; border-top: 1px solid var(--color-border); font-size: 0.85rem; }
+  dt { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-muted); }
+  dd { margin: 0; font-weight: 600; text-align: right; }
+  .hash { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; padding: 1.25rem 0; border-top: 1px solid var(--color-border); }
+  .hash span { font-family: var(--font-mono); font-size: 0.72rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: var(--color-primary-soft); color: var(--color-accent); }
+  .love-title { text-align: center; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 0.75rem; padding-top: 1rem; border-top: 1px solid var(--color-border); }
+  .loves { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.1rem; font-size: 0.85rem; }
+  .loves li::before { content: '♥'; color: var(--color-accent); margin-right: 0.35rem; }
+
+  /* Mission */
+  .mission {
+    border: 1px solid var(--color-accent); border-radius: var(--radius-lg); padding: 2rem 2.25rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 8%, transparent), transparent 60%);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-accent) 12%, transparent);
+  }
+  .mission-text { font-size: clamp(1.2rem, 2.6vw, 1.6rem); font-weight: 800; margin: 0; line-height: 1.4; }
+
+  /* Cards */
+  .card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; transition: border-color var(--transition), transform var(--transition); }
+  .card:hover { border-color: var(--color-accent); }
+  .card p { color: var(--color-text-muted); font-size: 0.9rem; margin: 0 0 0.6rem; }
+  .focus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .card-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--color-primary-soft); color: var(--color-accent); margin-bottom: 1rem; }
+  .card-icon svg { width: 20px; height: 20px; }
+
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; counter-reset: none; }
+  .steps li { position: relative; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem 1.1rem; font-weight: 700; font-size: 0.95rem; }
+  .steps li span { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); margin-bottom: 0.4rem; }
+  .steps li:not(:last-child)::after { content: '→'; position: absolute; right: -0.65rem; top: 50%; transform: translateY(-50%); color: var(--color-accent); font-size: 0.8rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .skill header { display: flex; justify-content: space-between; align-items: start; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .skill header span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-accent); }
+  .skill ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.45rem; }
+  .skill li { font-size: 0.85rem; color: var(--color-text-muted); }
+  .skill li::before { content: '›'; color: var(--color-accent); margin-right: 0.5rem; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .lead { font-weight: 600; margin-top: -0.75rem; }
+  .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1.25rem; }
+  .value { background: var(--color-bg-card); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent); border-radius: var(--radius-md); padding: 0.75rem 1rem; font-weight: 700; }
+  .tagline { font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-accent); }
+
+  .audience { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.9rem; }
+  .card.small { padding: 1.1rem 1.2rem; }
+  .card.small h3 { font-size: 0.92rem; }
+  .card.small p { font-size: 0.8rem; margin: 0; }
+  .cta { display: grid; place-items: center; text-align: center; font-weight: 700; color: var(--color-accent); border-color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
+  .cta:hover { text-decoration: none; background: var(--color-primary-soft); }
+
+  @media (max-width: 1024px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .audience { grid-template-columns: repeat(2, 1fr); }
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .steps li::after { display: none; }
+  }
+  @media (max-width: 860px) {
+    .hero, .two-col, .focus-grid { grid-template-columns: 1fr; }
+    .profile { position: static; }
+  }
+  @media (max-width: 520px) {
+    .skills-grid, .audience, .steps { grid-template-columns: 1fr; }
+    .values { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
