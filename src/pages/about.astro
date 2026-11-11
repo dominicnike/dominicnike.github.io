@@ -30,7 +30,15 @@ const focus = [
   { title: 'Mentoring & Enablement', icon: icon.book, text: 'Share knowledge, coach and elevate engineering teams.' },
 ];
 
-const approach = ['Build it', 'Automate it', 'Secure it', 'Monitor it', 'Improve it'];
+const approach = [
+  'Understand the problem',
+  'Design with purpose',
+  'Automate everything',
+  'Secure it',
+  'Deliver incrementally',
+  'Monitor & improve',
+  'Share & enable',
+];
 
 const skills = [
   { title: 'Cloud Platforms', items: ['Microsoft Azure', 'Amazon Web Services', 'Google Cloud', 'Hybrid environments'] },
@@ -167,7 +175,7 @@ const certGroups = [
       <p class="eyebrow">How I work</p>
       <h2>My approach</h2>
       <ol class="steps">
-        {approach.map((s, i) => <li><span>{String(i + 1).padStart(2, '0')}</span>{s}.</li>)}
+        {approach.map((s, i) => <li><span>{String(i + 1).padStart(2, '0')}</span>{s}</li>)}
       </ol>
     </section>
 
@@ -337,8 +345,8 @@ const certGroups = [
   .card-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--color-primary-soft); color: var(--color-accent); margin-bottom: 1rem; }
   .card-icon svg { width: 20px; height: 20px; }
 
-  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; counter-reset: none; }
-  .steps li { position: relative; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem 1.1rem; font-weight: 700; font-size: 0.95rem; }
+  .steps { list-style: none; padding: 0; margin: 0; display: grid;   grid-template-columns: repeat(7, 1fr); gap: 0.75rem; counter-reset: none; }
+    .steps li { position: relative; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1rem 0.9rem; font-weight: 700; font-size: 0.85rem; line-height: 1.35; }
   .steps li span { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); margin-bottom: 0.4rem; }
   .steps li:not(:last-child)::after { content: '→'; position: absolute; right: -0.65rem; top: 50%; transform: translateY(-50%); color: var(--color-accent); font-size: 0.8rem; }
 
@@ -395,7 +403,7 @@ const certGroups = [
     .cert-grid, .focus-grid { grid-template-columns: repeat(2, 1fr); }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .audience { grid-template-columns: repeat(2, 1fr); }
-    .steps { grid-template-columns: repeat(3, 1fr); }
+    .steps { grid-template-columns: repeat(4, 1fr); }
     .steps li::after { display: none; }
   }
   @media (max-width: 860px) {
