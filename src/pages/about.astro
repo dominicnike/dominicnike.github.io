@@ -11,44 +11,23 @@ const icon = {
   gear: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z',
   shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4',
   server: 'M2 4h20v6H2zM2 14h20v6H2zM6 7h.01M6 17h.01',
+  layers: 'M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+  git: 'M6 3v12M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 9a9 9 0 0 1-9 9',
+  helm: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 3v5M12 16v5M3.5 9.5 8 11M16 13l4.5 1.5M3.5 14.5 8 13M16 11l4.5-1.5',
+  search: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35',
+  eye: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+  book: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5',
 };
 
 const focus = [
-  {
-    title: 'Cloud & Platform Engineering',
-    icon: icon.cloud,
-    body: [
-      'My experience spans cloud infrastructure, compute, networking, storage, identity, security, monitoring, backup, disaster recovery, and hybrid connectivity.',
-      'I work with technologies including Kubernetes, AKS, EKS, GKE, OpenShift, Terraform, Azure Bicep, Helm, and CI/CD platforms such as Azure DevOps, GitHub Actions, GitLab CI, and Jenkins.',
-      'I’m particularly interested in platform engineering and infrastructure automation building environments that are consistent, reproducible, observable, secure, and resilient.',
-    ],
-  },
-  {
-    title: 'DevOps & Automation',
-    icon: icon.gear,
-    body: [
-      'Automation is a major part of how I approach infrastructure engineering.',
-      'I use Infrastructure as Code, CI/CD, scripting, configuration management, and automation to improve consistency, reduce configuration drift, eliminate repetitive manual processes, and make deployments more reliable.',
-      'For me, DevOps is not simply about tools. It is about improving the way people, processes, infrastructure, and applications work together.',
-    ],
-  },
-  {
-    title: 'Cloud Security & Identity',
-    icon: icon.shield,
-    body: [
-      'Security is an integral part of my approach to infrastructure engineering.',
-      'My experience includes Microsoft Entra ID, IAM, RBAC, Conditional Access, endpoint security, EDR/XDR, SIEM, vulnerability management, incident response, network security, email security, and security monitoring.',
-      'I believe security should be considered from the beginning of the infrastructure and application lifecycle not added as an afterthought.',
-    ],
-  },
-  {
-    title: 'Enterprise Infrastructure',
-    icon: icon.server,
-    body: [
-      'My background also includes enterprise experience across Windows and Linux systems, virtualization, networking, Microsoft 365, Intune, Active Directory, Exchange, VMware, Hyper-V, backup and disaster recovery, and endpoint management.',
-      'This broader infrastructure background gives me a practical understanding of how traditional enterprise environments connect with modern cloud platforms.',
-    ],
-  },
+  { title: 'Platform Engineering & Cloud Architecture', icon: icon.layers, text: 'Design scalable, secure and cost-effective cloud solutions.' },
+  { title: 'CI/CD & GitOps Automation', icon: icon.git, text: 'Build pipelines, Infrastructure as Code and policy-as-code.' },
+  { title: 'Kubernetes & Containers', icon: icon.helm, text: 'Operate, secure and optimize containerized workloads.' },
+  { title: 'Cloud Security & Identity', icon: icon.shield, text: 'Secure identities, endpoints and workloads with IAM, Zero Trust, SIEM and XDR.' },
+  { title: 'Observability & Reliability', icon: icon.search, text: 'Monitoring, logging, alerting and performance tuning.' },
+  { title: 'AI Workflows & Agents', icon: icon.eye, text: 'Design AI-powered automation and intelligent workflows.' },
+  { title: 'Enterprise Infrastructure', icon: icon.server, text: 'Windows, Linux, Microsoft 365, Intune, virtualization and hybrid connectivity.' },
+  { title: 'Mentoring & Enablement', icon: icon.book, text: 'Share knowledge, coach and elevate engineering teams.' },
 ];
 
 const approach = ['Build it', 'Automate it', 'Secure it', 'Monitor it', 'Improve it'];
@@ -171,12 +150,12 @@ const certGroups = [
       <div class="focus-grid">
         {
           focus.map((f) => (
-            <article class="card">
+            <article class="card focus-card">
               <span class="card-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={f.icon} /></svg>
               </span>
               <h3>{f.title}</h3>
-              {f.body.map((p) => <p>{p}</p>)}
+              <p>{f.text}</p>
             </article>
           ))
         }
@@ -351,7 +330,10 @@ const certGroups = [
   .card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; transition: border-color var(--transition), transform var(--transition); }
   .card:hover { border-color: var(--color-accent); }
   .card p { color: var(--color-text-muted); font-size: 0.9rem; margin: 0 0 0.6rem; }
-  .focus-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .focus-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .focus-card { padding: 1.25rem 1.25rem 1.4rem; }
+  .focus-card h3 { font-size: 1rem; line-height: 1.3; margin: 0 0 0.5rem; }
+  .focus-card p { font-size: 0.85rem; line-height: 1.6; margin: 0; }
   .card-icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--color-primary-soft); color: var(--color-accent); margin-bottom: 1rem; }
   .card-icon svg { width: 20px; height: 20px; }
 
@@ -410,18 +392,18 @@ const certGroups = [
   .cert.pending .code { border-style: dashed; opacity: 0.8; }
 
   @media (max-width: 1024px) {
-    .cert-grid { grid-template-columns: repeat(2, 1fr); }
+    .cert-grid, .focus-grid { grid-template-columns: repeat(2, 1fr); }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .audience { grid-template-columns: repeat(2, 1fr); }
     .steps { grid-template-columns: repeat(3, 1fr); }
     .steps li::after { display: none; }
   }
   @media (max-width: 860px) {
-    .hero, .two-col, .focus-grid { grid-template-columns: 1fr; }
+    .hero, .two-col { grid-template-columns: 1fr; }
     .profile { position: static; }
   }
   @media (max-width: 520px) {
-    .skills-grid, .audience, .steps, .cert-grid { grid-template-columns: 1fr; }
+    .skills-grid, .audience, .steps, .cert-grid, .focus-grid { grid-template-columns: 1fr; }
     .values { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
