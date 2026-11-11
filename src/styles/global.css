@@ -119,12 +119,6 @@ img { max-width: 100%; }
   .logo span:last-child { overflow: hidden; text-overflow: ellipsis; }
 }
 
-/* Footer */
-.site-footer { border-top: 1px solid var(--color-border); padding: 2.5rem 0; margin-top: 4rem; color: var(--color-text-muted); font-size: 0.9rem; }
-.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; align-items: center; }
-.footer-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-.footer-links a { color: var(--color-text-muted); }
-.footer-links a:hover { color: var(--color-primary); }
 
 /* Cards & grids */
 .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
