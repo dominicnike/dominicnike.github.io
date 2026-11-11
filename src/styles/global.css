@@ -112,6 +112,12 @@ img { max-width: 100%; }
   .search-trigger { margin-left: auto; }
   .search-trigger .label, .search-trigger kbd { display: none; }
 }
+@media (max-width: 520px) {
+  .header-inner { gap: 0.5rem; }
+  .header-rss { display: none; }
+  .logo { min-width: 0; font-size: 1rem; }
+  .logo span:last-child { overflow: hidden; text-overflow: ellipsis; }
+}
 
 /* Footer */
 .site-footer { border-top: 1px solid var(--color-border); padding: 2.5rem 0; margin-top: 4rem; color: var(--color-text-muted); font-size: 0.9rem; }
