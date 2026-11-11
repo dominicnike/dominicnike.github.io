@@ -74,6 +74,38 @@ const audience = [
 ];
 
 const pills = SOCIALS.filter((s) => s.icon !== 'rss');
+
+const featuredCert = {
+  title: 'Microsoft Certified Trainer',
+  text: 'Microsoft Certified Trainer from 2021 to 2026, delivering official Microsoft technical training.',
+};
+
+const certGroups = [
+  {
+    issuer: 'Microsoft',
+    certs: [
+      { code: 'AZ-305', name: 'Azure Solutions Architect Expert' },
+      { code: 'AZ-400', name: 'DevOps Engineer Expert' },
+      { code: 'SC-100', name: 'Cybersecurity Architect Expert' },
+      { code: 'AZ-104', name: 'Azure Administrator Associate' },
+      { code: 'AI-102', name: 'Azure AI Engineer Associate' },
+      { code: 'MD-100/101', name: 'Microsoft 365 Endpoint Administrator Associate' },
+      { code: '70-696', name: 'Administering System Center Configuration Manager and Intune' },
+      { code: 'MCITP', name: 'IT Professional: Enterprise Support Technician' },
+    ],
+  },
+  {
+    issuer: 'Oracle',
+    certs: [
+      { code: 'OCI', name: 'Oracle Cloud Infrastructure 2019 Certified Architect' },
+      { code: 'OCI', name: 'Oracle Cloud Infrastructure 2019 Certified Architect Associate' },
+    ],
+  },
+  {
+    issuer: 'CNCF / Linux Foundation · In progress',
+    certs: [{ code: 'CKA', name: 'Certified Kubernetes Administrator', pending: true }],
+  },
+];
 ---
 
 <BaseLayout title="About" description={`About ${SITE.author} — ${SITE.role}.`}>
@@ -113,6 +145,8 @@ const pills = SOCIALS.filter((s) => s.icon !== 'rss');
         <div class="avatar-ring"><img src={SITE.avatar} alt={SITE.author} width="150" height="150" /></div>
         <dl>
           <div><dt>Role</dt><dd>{SITE.role}</dd></div>
+          <div><dt>Based in</dt><dd>🇳🇬 Lagos, Nigeria</dd></div>
+          <div><dt>Relocation</dt><dd class="open"><span class="pulse"></span>Open to relocate</dd></div>
           <div><dt>Clouds</dt><dd>Azure · AWS · GCP</dd></div>
           <div><dt>Experience</dt><dd>10+ years</dd></div>
         </dl>
@@ -218,6 +252,36 @@ const pills = SOCIALS.filter((s) => s.icon !== 'rss');
         <a class="card small cta" href="/blog">Read the blog →</a>
       </div>
     </section>
+
+    <!-- Certifications -->
+    <section>
+      <p class="eyebrow">Credentials</p>
+      <h2>Certifications</h2>
+      <div class="featured-cert">
+        <span class="fc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"></path></svg>
+        </span>
+        <div>
+          <h3>{featuredCert.title}</h3>
+          <p>{featuredCert.text}</p>
+        </div>
+      </div>
+      {
+        certGroups.map((g) => (
+          <div class="cert-group">
+            <p class="cert-issuer">{g.issuer}</p>
+            <div class="cert-grid">
+              {g.certs.map((c) => (
+                <div class:list={['cert', { pending: 'pending' in c }]}>
+                  <span class="code">{c.code}</span>
+                  <span class="name">{c.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </section>
   </div>
 </BaseLayout>
 
@@ -314,7 +378,37 @@ const pills = SOCIALS.filter((s) => s.icon !== 'rss');
   .cta { display: grid; place-items: center; text-align: center; font-weight: 700; color: var(--color-accent); border-color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
   .cta:hover { text-decoration: none; background: var(--color-primary-soft); }
 
+  .open { display: inline-flex; align-items: center; gap: 0.45rem; color: #10b981; }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; }
+
+  .featured-cert {
+    display: flex; align-items: center; gap: 1.25rem; padding: 1.4rem 1.6rem; margin-bottom: 2rem;
+    border: 1px solid var(--color-accent); border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 70%);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-accent) 12%, transparent);
+  }
+  .featured-cert h3 { font-size: 1.15rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 0.25rem; }
+  .featured-cert p { margin: 0; color: var(--color-text-muted); font-size: 0.9rem; }
+  .fc-icon { flex-shrink: 0; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; color: #04131a; background: var(--color-accent); }
+  .fc-icon svg { width: 26px; height: 26px; }
+  .cert-group { margin-bottom: 1.75rem; }
+  .cert-issuer { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 0.75rem; }
+  .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .cert {
+    display: flex; align-items: center; gap: 0.9rem; padding: 0.9rem 1rem; border-radius: var(--radius-md);
+    background: var(--color-bg-card); border: 1px solid var(--color-border); transition: border-color var(--transition);
+  }
+  .cert:hover { border-color: var(--color-accent); }
+  .cert .code {
+    flex-shrink: 0; min-width: 64px; text-align: center; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+    padding: 0.3rem 0.5rem; border-radius: 4px; border: 1px solid var(--color-accent); color: var(--color-accent);
+  }
+  .cert .name { font-size: 0.85rem; font-weight: 600; line-height: 1.35; }
+  .cert.pending { border-style: dashed; }
+  .cert.pending .code { border-style: dashed; opacity: 0.8; }
+
   @media (max-width: 1024px) {
+    .cert-grid { grid-template-columns: repeat(2, 1fr); }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .audience { grid-template-columns: repeat(2, 1fr); }
     .steps { grid-template-columns: repeat(3, 1fr); }
@@ -325,7 +419,7 @@ const pills = SOCIALS.filter((s) => s.icon !== 'rss');
     .profile { position: static; }
   }
   @media (max-width: 520px) {
-    .skills-grid, .audience, .steps { grid-template-columns: 1fr; }
+    .skills-grid, .audience, .steps, .cert-grid { grid-template-columns: 1fr; }
     .values { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
