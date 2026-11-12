@@ -1,10 +1,14 @@
 ---
 import { NAV, SITE, SOCIALS } from '../consts';
-import { getPosts, getTagCounts } from '../utils';
+import { getPosts, getTagCounts, slugifyTag } from '../utils';
 import SocialLinks from './SocialLinks.astro';
 
 const year = new Date().getFullYear();
-const topics = getTagCounts(await getPosts()).slice(0, 5);
+const existingTags = new Set(getTagCounts(await getPosts()).map((t) => t.slug));
+const topics = ['AI & Automation', 'Azure', 'Kubernetes', 'DevOps', 'Infrastructure as Code'].map((name) => {
+  const slug = slugifyTag(name);
+  return { name, href: existingTags.has(slug) ? `/tags/${slug}` : '/blog' };
+});
 const github = SOCIALS.find((s) => s.icon === 'github')!.url;
 const initials = SITE.author.split(' ').map((n) => n[0]).join('');
 ---
@@ -33,7 +37,7 @@ const initials = SITE.author.split(' ').map((n) => n[0]).join('');
 
     <nav class="footer-col" aria-label="Topics">
       <h4>Topics</h4>
-      <ul>{topics.map((t) => <li><a href={`/tags/${t.slug}`}>{t.name}</a></li>)}</ul>
+      <ul>{topics.map((t) => <li><a href={t.href}>{t.name}</a></li>)}</ul>
     </nav>
 
     <nav class="footer-col" aria-label="Feeds">
@@ -111,6 +115,8 @@ const initials = SITE.author.split(' ').map((n) => n[0]).join('');
     .footer-brand { grid-column: 1 / -1; }
   }
   @media (max-width: 520px) {
-    .footer-main { grid-template-columns: 1fr 1fr; }
+    .footer-main { grid-template-columns: 1fr 1.4fr 1fr; gap: 2rem 1rem; }
+    .footer-col h4 { font-size: 0.68rem; letter-spacing: 0.14em; }
+    .footer-col a { font-size: 0.82rem; }
   }
 </style>
