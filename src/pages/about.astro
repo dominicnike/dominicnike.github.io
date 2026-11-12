@@ -272,6 +272,12 @@ const certGroups = [
       }
     </section>
   </div>
+
+  <section class="signature">
+    <div class="orb"><img src={SITE.avatar} alt={SITE.author} width="120" height="120" loading="lazy" /></div>
+    <p class="sig-name">{SITE.author}</p>
+    <p class="sig-tag">Cloud · DevOps · Platform Engineering · Security</p>
+  </section>
 </BaseLayout>
 
 <style>
@@ -398,6 +404,19 @@ const certGroups = [
   .cert .name { font-size: 0.85rem; font-weight: 600; line-height: 1.35; }
   .cert.pending { border-style: dashed; }
   .cert.pending .code { border-style: dashed; opacity: 0.8; }
+
+  .signature {
+    margin-top: 5rem; margin-bottom: -80px; padding: 3.5rem 1.5rem 3.5rem; text-align: center; border-top: 1px solid var(--color-border);
+    background: radial-gradient(ellipse 50% 90% at 50% 0%, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 70%);
+  }
+  .orb {
+    width: 120px; height: 120px; margin: 0 auto 1.75rem; border-radius: 50%; padding: 4px;
+    background: conic-gradient(from 180deg, var(--color-accent), var(--color-primary), var(--color-accent));
+    box-shadow: 0 0 40px color-mix(in srgb, var(--color-accent) 55%, transparent), 0 0 90px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  }
+  .orb img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; border: 3px solid var(--color-bg); }
+  .sig-name { margin: 0 0 0.9rem; font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .sig-tag { margin: 0; font-family: var(--font-mono); font-size: clamp(0.7rem, 1.6vw, 0.85rem); letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-accent); }
 
   @media (max-width: 1024px) {
     .cert-grid, .focus-grid { grid-template-columns: repeat(2, 1fr); }
