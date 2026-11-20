@@ -1,0 +1,114 @@
+---
+interface Props {
+  variant?: 'full' | 'compact';
+}
+const { variant = 'full' } = Astro.props;
+const topics = ['Azure', 'DevOps', 'Cloud Infrastructure', 'Cybersecurity', 'AI', 'Microsoft Foundry'];
+const stats = [
+  { value: '30+', label: 'Free sessions' },
+  { value: '₦0', label: 'Cost to attend' },
+  { value: 'Sep 2025', label: 'Running since' },
+];
+---
+
+<section id="zero-to-hero" class:list={['z2h', variant]}>
+  <div class="z2h-head">
+    <p class="z2h-eyebrow">Giving back</p>
+    <h2>Zero to Hero <span>· free technical training</span></h2>
+  </div>
+
+  <div class="z2h-body">
+    <div class="z2h-text">
+      {
+        variant === 'full' ? (
+          <>
+            <p>
+              One experience that strongly resonates with any organisation's mission is my work delivering free
+              technical training through my <strong>Zero to Hero</strong> programmes. Since last year 2025 September, I
+              have delivered <strong>30+ hands-on training sessions</strong> and counting at no cost, helping
+              participants build practical skills across Azure cloud technologies, DevOps, cloud infrastructure,
+              cybersecurity, AI and Microsoft Foundry.
+            </p>
+            <p>
+              I started these programmes because I wanted to make practical, industry-relevant technology education
+              more accessible to people who may not otherwise have the opportunity or resources to access it. Rather
+              than focusing only on theory, I provide hands-on learning and practical guidance that participants can
+              apply in real-world environments.
+            </p>
+            <p>
+              This experience has reinforced my belief that technology can be a powerful tool for inclusion and
+              economic opportunity when knowledge and access are made available to more people. That closely aligns
+              with any company’s mission of using technology and innovation to expand access and improve lives,
+              particularly in underserved markets.
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Since September 2025, I have delivered <strong>30+ hands-on training sessions</strong> and counting at
+              no cost through my <strong>Zero to Hero</strong> programmes, helping participants build practical skills
+              across Azure, DevOps, cloud infrastructure, cybersecurity, AI and Microsoft Foundry.
+            </p>
+            <p>
+              I believe technology can be a powerful tool for inclusion and economic opportunity when knowledge and
+              access are made available to more people.
+            </p>
+            <a href="/about#zero-to-hero" class="z2h-link">Read the full story →</a>
+          </>
+        )
+      }
+      <ul class="z2h-topics">{topics.map((t) => <li>{t}</li>)}</ul>
+    </div>
+
+    <div class="z2h-stats">
+      {
+        stats.map((s) => (
+          <div>
+            <strong>{s.value}</strong>
+            <span>{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .z2h {
+    position: relative; overflow: hidden; padding: 2.25rem; border-radius: var(--radius-lg);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+    background:
+      radial-gradient(ellipse 60% 80% at 100% 0%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 70%),
+      var(--color-bg-card);
+  }
+  .z2h-eyebrow {
+    display: flex; align-items: center; gap: 0.75rem; margin: 0 0 0.6rem; font-family: var(--font-mono);
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent);
+  }
+  .z2h-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--color-accent); }
+  h2 { margin: 0 0 1.5rem; font-size: clamp(1.5rem, 3.5vw, 2rem); }
+  h2 span { color: var(--color-text-muted); font-weight: 600; font-size: 0.6em; }
+  .z2h-body { display: grid; grid-template-columns: 1fr 220px; gap: 2.5rem; align-items: start; }
+  .z2h-text p { color: var(--color-text-muted); line-height: 1.75; margin: 0 0 1rem; }
+  .z2h-text strong { color: var(--color-text); }
+  .z2h-link { display: inline-block; margin-bottom: 1.25rem; font-weight: 600; color: var(--color-accent); }
+  .z2h-topics { list-style: none; padding: 0; margin: 0.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .z2h-topics li {
+    font-family: var(--font-mono); font-size: 0.72rem; padding: 0.3rem 0.7rem; border-radius: 100px;
+    border: 1px solid var(--color-border); color: var(--color-accent);
+  }
+  .z2h-stats { display: flex; flex-direction: column; gap: 0.75rem; }
+  .z2h-stats div {
+    display: flex; flex-direction: column; padding: 1rem 1.1rem; border-radius: var(--radius-md);
+    border: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-bg) 60%, transparent);
+  }
+  .z2h-stats strong { font-size: 1.6rem; font-weight: 800; color: var(--color-accent); line-height: 1.2; }
+  .z2h-stats span { font-size: 0.8rem; color: var(--color-text-muted); }
+  @media (max-width: 860px) {
+    .z2h { padding: 1.5rem; }
+    .z2h-body { grid-template-columns: 1fr; gap: 1.5rem; }
+    .z2h-stats { flex-direction: row; flex-wrap: wrap; }
+    .z2h-stats div { flex: 1 1 90px; padding: 0.8rem; }
+    .z2h-stats strong { font-size: 1.15rem; white-space: nowrap; }
+  }
+</style>

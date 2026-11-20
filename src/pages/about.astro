@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ZeroToHero from '../components/ZeroToHero.astro';
 import { SITE, SOCIALS } from '../consts';
 
 const chips = ['Cloud', 'DevOps', 'Platform', 'SRE', 'Security'];
@@ -151,6 +152,8 @@ const certGroups = [
       <p class="mission-text">To make complex technologies easier to understand and practical to apply.</p>
     </section>
 
+    <div class="z2h-wrap"><ZeroToHero /></div>
+
     <!-- Focus -->
     <section>
       <p class="eyebrow">Focus</p>
@@ -283,6 +286,7 @@ const certGroups = [
 <style>
   .about { padding-top: 3.5rem; }
   section { margin-bottom: 4.5rem; }
+  .z2h-wrap { margin-bottom: 4.5rem; }
   .eyebrow {
     display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.75rem;
     font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent);
